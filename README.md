@@ -41,5 +41,19 @@ Desarrollar y documentar un sistema de medición ambulatoria del índice pletism
 * Identificar las posibles dificultades y limitaciones presentadas durante el montaje y funcionamiento del circuito de adquisición.
 * Comprender la relación entre las variaciones fisiológicas producidas durante el Cold Pressor Test y la respuesta nociceptiva.
 
-
 ---
+
+# II. Marco Teórico
+
+## A. Fotopletismografía (PPG)
+
+La fotopletismografía (PPG) es una técnica óptica que se utiliza para detectar variaciones en el volumen sanguíneo de los tejidos. Su funcionamiento se basa en la interacción de la luz con el tejido biológico, esto ocurre cuando una fuente de luz ilumina la zona de interés y un fotodetector registra los cambios en la cantidad de luz recibida. Debido a que el volumen de sangre presente en los vasos sanguíneos cambia con cada ciclo cardíaco, la señal obtenida presenta variaciones relacionadas con el pulso [2].
+
+La señal PPG puede utilizarse para identificar características como los pulsos cardíacos, el intervalo entre ellos y la amplitud de la onda. Estas características son de utilidad para el monitoreo de variables fisiológicas y constituyen la base de diferentes sistemas de instrumentación biomédica.
+
+<img width="763" height="407" alt="image" src="https://github.com/user-attachments/assets/0f1c1cdc-4373-4e46-92a2-37a85b13483a" />
+
+
+
+
+
