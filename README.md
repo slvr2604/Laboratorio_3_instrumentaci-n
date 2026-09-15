@@ -52,6 +52,7 @@ La fotopletismografía (PPG) es una técnica óptica que se utiliza para detecta
 La señal PPG puede utilizarse para identificar características como los pulsos cardíacos, el intervalo entre ellos y la amplitud de la onda. Estas características son de utilidad para el monitoreo de variables fisiológicas y constituyen la base de diferentes sistemas de instrumentación biomédica.
 ### Figura 1. Circuito para la captura de las variaciones del volumen sanguíneo periférico
 <img width="763" height="407" alt="image" src="https://github.com/user-attachments/assets/0f1c1cdc-4373-4e46-92a2-37a85b13483a" />
+
 *Fuente: Adaptado de la Guía de Preparación de Práctica de Laboratorio, Instrumentación Biomédica y Biosensores, Universidad Militar Nueva Granada.*
 
 
