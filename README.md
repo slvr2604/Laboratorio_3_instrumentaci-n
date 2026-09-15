@@ -8,49 +8,38 @@ Silvia Lorena Vargas Rueda.
 
 ## Resumen
 
-La respiración es un proceso fisiológico esencial que garantiza el intercambio de oxígeno y dióxido de carbono entre el organismo y el medio ambiente. El monitoreo de sus variables permite evaluar el estado funcional del sistema respiratorio y constituye una herramienta de gran utilidad en aplicaciones clínicas.
+En esta práctica de laboratorio se planteó el desarrollo de un sistema para la adquisición de la señal fotopletismográfica (PPG) y el cálculo ambulatorio del índice pletismográfico quirúrgico (SPI), utilizado como indicador del balance entre nocicepción y analgesia. Para lograrlo, se propuso construir un circuito de adquisición basado en un sensor óptico de reflectancia, realizar la captura de la señal mediante Arduino y posteriormente procesarla utilizando MATLAB. La práctica también contemplaba la aplicación de la maniobra Cold Pressor Test (CPT) para observar las variaciones fisiológicas asociadas a una respuesta nociceptiva.
 
-En esta práctica se diseñó un sistema de adquisición para registrar el patrón respiratorio de un individuo sano mediante un sensor resistivo sensible a la fuerza (**FSR402**), ubicado sobre la región toracoabdominal para detectar las variaciones de presión de contacto generadas durante la respiración.
+Durante el desarrollo experimental se realizó el montaje del circuito de adquisición en protoboard, sin embargo, el circuito no presentó el funcionamiento esperado y no fue posible obtener una señal PPG adecuada para continuar con la adquisición y procesamiento de los datos. Debido a esto, no se logró realizar la captura experimental, el cálculo del SPI ni la aplicación completa del protocolo planteado. Por esta razón, el presente informe documenta el procedimiento propuesto, las dificultades encontradas y las consideraciones necesarias para el desarrollo de la práctica.
 
-La señal fue adquirida mediante una tarjeta **DAQ** y procesada en **MATLAB** para su visualización y análisis. Se realizaron registros en condiciones de reposo y durante el habla con el fin de comparar el comportamiento del patrón respiratorio y estimar la frecuencia respiratoria.
-
-Además, se plantea el análisis de la señal en los dominios del tiempo y de la frecuencia para identificar las componentes dominantes y relacionar los resultados con la fisiología respiratoria.
 
 ---
 
 # I. Introducción
 
-La respiración es un proceso fisiológico fundamental para el mantenimiento de la vida, ya que permite el intercambio de oxígeno y dióxido de carbono entre el organismo y el medio externo, garantizando el aporte de oxígeno a los tejidos y la eliminación del dióxido de carbono producido por el metabolismo celular [1].
+Durante los procedimientos quirúrgicos, el organismo puede presentar respuestas fisiológicas asociadas a estímulos negativos y al estrés producido durante la intervención. La evaluación de estas respuestas es especialmente importante en pacientes sometidos a anestesia general, ya que permite estudiar el balance entre la nocicepción y la analgesia administrada. Entre las herramientas desarrolladas para este propósito se encuentra el índice pletismográfico quirúrgico (SPI, *Surgical Pleth Index*), el cual utiliza información obtenida a partir de la onda de pulso o señal fotopletismográfica (PPG) para estimar cambios relacionados con la respuesta nociceptiva [1].
 
-Debido a su importancia, la evaluación de la función respiratoria constituye una herramienta esencial para valorar el estado fisiológico de un individuo y detectar posibles alteraciones del sistema respiratorio [2].
+El SPI presenta valores entre 0 y 100, donde los valores más altos indican una mayor respuesta nociceptiva. De acuerdo con la guía de laboratorio, durante una anestesia general se considera como referencia un rango entre 20 y 50 para una analgesia adecuada.
 
-Entre los principales parámetros respiratorios se encuentran:
+En esta práctica se planteó el diseño y construcción de un sistema para capturar las variaciones del volumen sanguíneo periférico mediante un sensor óptico de reflectancia. La señal obtenida debía ser adquirida mediante una placa Arduino y posteriormente procesada en MATLAB para identificar las características de la onda de pulso y calcular el SPI en cada latido. Además, se contemplaba la aplicación del *Cold Pressor Test* (CPT) con el propósito de generar una respuesta fisiológica similar a la producida por el dolor agudo y observar sus efectos sobre el índice.
 
-- Frecuencia respiratoria.
-- Volumen corriente.
-- Volumen minuto.
-- Patrón respiratorio.
+Durante el desarrollo experimental, el circuito de adquisición no presentó el funcionamiento esperado. No fue posible obtener una señal PPG adecuada y estable que permitiera continuar con las etapas de adquisición, procesamiento y cálculo del SPI. Por esta razón, no se obtuvieron datos experimentales ni fue posible completar la entrega de laboratorio planteada inicialmente. Esta situación se documenta en el presente informe como parte de las dificultades encontradas durante la implementación del sistema.
 
-Estos parámetros proporcionan información sobre el funcionamiento del sistema respiratorio y la respuesta del organismo frente a diferentes condiciones fisiológicas [2].
 
-En particular, la frecuencia respiratoria es uno de los signos vitales de mayor utilidad clínica, ya que puede modificarse como consecuencia de cambios en la actividad física, el habla, el estrés o diversas patologías respiratorias [3].
+## Objetivos.
 
-Para el monitoreo de estos parámetros pueden medirse diferentes variables físicas relacionadas con el proceso respiratorio, como:
+### Objetivo general
 
-- Flujo de aire.
-- Presión.
-- Temperatura.
-- Humedad.
-- Movimientos de expansión y contracción torácica y abdominal.
+Desarrollar y documentar un sistema de medición ambulatoria del índice pletismográfico quirúrgico (SPI) a partir de la adquisición y procesamiento de una señal fotopletismográfica (PPG), reconociendo las etapas necesarias para su implementación y las limitaciones encontradas durante el montaje experimental.
 
-La selección de la variable depende de la aplicación y del método de adquisición empleado [4].
+### Objetivos específicos
 
-Los sistemas de monitoreo no invasivos han cobrado especial importancia debido a que permiten registrar la actividad respiratoria sin generar molestias ni interferir con el proceso fisiológico normal [4].
+* Reconocer las características fundamentales de la onda de pulso utilizadas para la obtención del SPI.
+* Construir un sistema de adquisición capaz de detectar las variaciones del volumen sanguíneo periférico mediante un sensor óptico.
+* Implementar la adquisición de la señal mediante una placa Arduino y su posterior procesamiento en MATLAB.
+* Analizar el procedimiento necesario para calcular el SPI a partir de las características de la señal de pulso.
+* Identificar las posibles dificultades y limitaciones presentadas durante el montaje y funcionamiento del circuito de adquisición.
+* Comprender la relación entre las variaciones fisiológicas producidas durante el Cold Pressor Test y la respuesta nociceptiva.
 
-En esta práctica se empleó un sensor **FSR402** ubicado sobre la región toracoabdominal para detectar las variaciones de fuerza de contacto producidas durante la expansión y contracción del cuerpo a lo largo del ciclo respiratorio.
-
-### Objetivo
-
-Desarrollar un sistema de adquisición capaz de registrar la señal respiratoria de un individuo sano mediante una tarjeta DAQ, procesarla en MATLAB y determinar la frecuencia respiratoria tanto en estado de reposo como durante el habla.
 
 ---
