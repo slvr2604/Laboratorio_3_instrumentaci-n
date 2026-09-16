@@ -667,5 +667,28 @@ TP, FP y FN
 Sensibilidad y precisión
 ```
 
+---
+
+Como no fue posbile completar satisfactoriamente la adquisición experimental de la señal PPG a través del circuito desarrollado se realizó una simulación en MATLAB con el objetivo de desarrollar la etapa de procesamiento de la señal necesaria. De esta manera fue posible llevar a cabo la generación de una señal PPG y aplicar sobre ella el algoritmo de detección de máximo y mínimo utilizando el Método de Detección de Pico del Mountaineer (MMPD).
+
+Esto se hizo por 30 segundos y con una frecuencia de muestreo de 100 Hz lo cual dio como resultado 3000 muestras. La señal fue generada mediante la incorporación de cambios en las amplitudes de los pulsos,pequeños cambios en la frecuencia cardíaca así como en la línea base y ruido de baja amplitud. Esto se hizo con el objetivo de generar una señal PPG simulada que se asemeje a una señal fisiológica.
+
+<p align="center">
+<img width="1046" height="618" alt="WhatsApp Image 2026-09-15 at 7 40 50 PM" src="https://github.com/user-attachments/assets/5cc203d0-b0db-4e07-b308-21694a38d9a3" />
+</p>
+
+<p align="center">
+  <sub>Figura 1. Señal PPG simulada durante 30 s y detección de picos sistólicos y valles mediante el Método del Alpinista. Tomado de: Elaboración propia.</sub>
+</p>
+
+La Figura 1 presenta la señal simulada de PPG para el intervalo de 30 segundos. Se puede observar que hay una serie de pulsos correspondientes a diferentes ciclos cardíacos con variaciones en la amplitud y el tiempo entre ellos. Los puntos rojos indican los picos sistólicos detectados utilizando el Método Climber mientras que los puntos verdes representan los valles detectados. Es posible analizar la ubicación de los puntos a lo largo de toda la señal. Es interesante notar que existen algunas variaciones en la línea base y la forma de los pulsos. Además la señal completa puede ser analizada con sus puntos característicos ubicados por el algoritmo.
+
+<p align="center">
+<img width="1000" height="626" alt="WhatsApp Image 2026-09-15 at 7 41 05 PM" src="https://github.com/user-attachments/assets/ae447a84-7507-4c23-82a5-769aad7223b9" />
+</p>
+
+<p align="center">
+  <sub>Figura 2. Detalle de la señal PPG simulada entre 1 y 6 s, mostrando la detección de los picos sistólicos y valles mediante el algoritmo MMPD. Tomado de: Elaboración propia.</sub>
+</p>
 
 
