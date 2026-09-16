@@ -55,6 +55,31 @@ La señal PPG puede utilizarse para identificar características como los pulsos
 
 *Fuente: Adaptado de la Guía de Preparación de Práctica de Laboratorio, Instrumentación Biomédica y Biosensores, Universidad Militar Nueva Granada.*
 
+## B. Nocicepción y respuesta autonómica
+La nocicepción es el proceso por el cual el cuerpo detecta los estímulos potencialmente dañinos utilizando el sistema nervioso.Aunque existe una relación muy estrecha entre la nocicepción y el dolor los dos términos no son intercambiables;la nocicepción implica el procesamiento de los estímulos dolorosos por parte del sistema nervioso mientras que el dolor es una sensación que depende de la fisiología y la psicología.[2]Este punto se vuelve importante cuando se administra una anestesia general ya que incluso bajo una anestesia general un paciente puede presentar reacciones autónomas a la nocicepción [3].
+
+La implementación de un estímulo nocivo conduce a cambios en el funcionamiento del sistema nervioso autónomo principalmente debido al aumento de la actividad simpática. Esta reacción puede causar alteraciones en los parámetros cardiovasculares incluyendo la frecuencia cardíaca, el intervalo entre ciclos cardíacos, la presión arterial y el tono vascular periférico. Dado que estos cambios pueden ser medidos por medio de señales fisiológicas,se han diseñado varios sistemas de monitoreo para evaluar objetivamente la respuesta nociceptiva durante la cirugía. Según la literatura especializada estos sistemas de monitoreo no miden directamente la experiencia subjetiva del dolor sino que miden reacciones fisiológicas relacionadas con la actividad autónoma como una aproximación de la experiencia nociceptiva [3].
+
+En este sentido la actividad simpática adquiere un significado especial en la circulación periférica. En respuesta a ciertos estímulos estresantes o nocivos el proceso de vasoconstricción periférica disminuye el volumen de sangre en los tejidos y causa la alteración de la amplitud de la onda pulsátil medida por la fotoplejismografía. Así la alteración en la señal PPG puede proporcionar indirectamente información acerca de los cambios en el tono vascular y la reacción autónoma del paciente [4],[5].
+
+## C. Amplitud de la onda pletismográfica y tono vascular
+La amplitud de la señal de la plejismografía se vuelve un aspecto particularmente fascinante dentro del contexto de las aplicaciones asociadas con la reacción autónoma.Un cambio en el tono vascular periférico conduce a un cambio en el volumen de sangre en la cama vascular lo cual a su vez crea cambios en la amplitud de la señal óptica obtenida. La vasoconstricción periférica resultante de la activación simpática bajo algunos estímulos específicos conduce a una disminución de la amplitud de la señal del pulso [4],[5].
+
+Este principio fisiológico explica el hecho de que la amplitud de la señal de la plejismografía sea uno de los parámetros del índice SPI.Incluye datos tanto de la amplitud de la onda de la PPG como del intervalo de tiempo entre pulsos [4],[5].
+
+Sin embargo, es importante destacar que la amplitud de la PPG(Gradiente de Presión Pulso) no está exclusivamente relacionada con la respuesta nociceptiva. La presión,la temperatura,la perfusión, el volumen intravascular,la postura del cuerpo y otros factores hemodinámicos del sensor pueden afectar su valor.Por lo tanto un aumento o una disminución de la amplitud no puede considerarse la manifestación de la presencia del dolor de forma independiente [9].
+
+## D. Índice pletismográfico quirúrgico
+El SPI es un parámetro creado para evaluar el equilibrio entre el estímulo del dolor y la antinocicepción bajo la anestesia general.Este concepto se basa en la reacción del sistema nervioso autónomo a los estímulos nociceptivos y se basa en la información obtenida usando la fotoplejisografía periférica. El parámetro se describe mediante un número del 0 al 100, con números más altos que indican una reacción fisiológica más significativa al estímulo nociceptivo[4],[5].
+
+El SPI se calcula de acuerdo a dos características fundamentales de la señal: la amplitud de la onda del pleth gráfico (PPGA) y la diferencia de tiempo entre latidos o Intervalo del latido cardíaco (HBI). Estos parámetros se normalizan y luego se integran en una sola expresión. La fórmula matemática utilizada es la siguiente:
+
+$$
+SPI=100-\left(0.67\,PPGA_{norm}+0.33\,HBI_{norm}\right)
+$$
+
+donde PPGAnorm corresponde a la amplitud pletismográfica normalizada y HBInorm representa el intervalo entre latidos normalizado [4], [10].
+
 
 
 
