@@ -691,4 +691,36 @@ La Figura 1 presenta la señal simulada de PPG para el intervalo de 30 segundos.
   <sub>Figura 2. Detalle de la señal PPG simulada entre 1 y 6 s, mostrando la detección de los picos sistólicos y valles mediante el algoritmo MMPD. Tomado de: Elaboración propia.</sub>
 </p>
 
+La Figura 2 es un método en el cual la señal se aborda en el rango de tiempo entre aproximadamente 1 y 6 segundos. En este gráfico se pueden ver los detalles con respecto a los ciclos de la señal PPG. Los puntos rojos se refieren a los máximos que se consideran como los picos sistólicos mientras que los puntos verdes se refieren a los mínimos considerados como valles.Este gráfico te ayuda a ver la posición en el tiempo de ambos puntos en los diferentes pulsos. La señal presenta un rápido ascenso hasta el pico y luego un lento descenso,con algunas variaciones en la morfología de los ciclos generados.
 
+Los resultados principales obtenidos mediante MATLAB se presentan en la Tabla 1.
+
+| Parámetro                                   | Resultado           |
+| ------------------------------------------- | ------------------- |
+| `Frecuencia de muestreo`                    |        100 Hz       |
+| `Duración de la simulación`                 |         30 s        |
+| `Número total de muestras`                  |         3000        |
+| `Frecuencia cardíaca (referencia)`          |        72 BPM       |
+| `Latidos simulados`                         |          36         |
+| `Picos detectados`                          |          35         |
+| `Valles detectados`                         |          34         |
+| `Frecuencia cardíaca promedio calculada`    |       72.14 BPM     |
+| `Intervalo RR promedio`                     |        0.833 s      |
+| `PPGA promedio`                             |        0.5143       |
+| `Tiempo de subida sistólica`                |       -0.576 s      |
+
+Durante la simulación se generaron 36 latidos. El algoritmo implementado detectó 35 picos sistólicos y 34 valles.
+
+A partir de los tiempos correspondientes a los picos detectados se obtuvieron los intervalos entre pulsos consecutivos. El intervalo RR promedio fue de 0,833 s, a partir del cual se obtuvo una frecuencia cardíaca promedio de 72,14 BPM.
+
+A partir de los picos y valles detectados se calculó la amplitud pulsátil de cada ciclo mediante la diferencia entre el valor máximo y el valor mínimo correspondiente, El valor promedio obtenido para la amplitud pulsátil de la señal fue 0.5143. La PPGA corresponde a la diferencia de amplitud entre el pico y el valle consecutivo de la señal PPG. Esta variable se obtiene a partir de la detección conjunta de ambos puntos característicos.
+
+La frecuencia cardíaca se calculó a partir de los intervalos de tiempo entre los picos sistólicos consecutivos. Para cada intervalo se utilizó la relación:
+
+$$
+FC = \frac{60}{RR}
+$$
+
+El valor promedio obtenido fue de 72.14 BPM, y el intervalo RR promedio calculado a partir de los picos detectados fue de 0.833 s.
+
+Como parte del procesamiento también se calculó el tiempo entre los puntos correspondientes al valle y al pico sistólico. El valor promedio obtenido por el programa fue de -0.576 s. Este resultado queda registrado como el valor entregado por el procesamiento de la simulación.
