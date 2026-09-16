@@ -164,3 +164,511 @@ En cuanto al sistema cardiovascular la respuesta simpática provocada por la est
 
 A su vez la técnica CPT permite examinar si un sistema dado de adquisición y procesamiento de datos es capaz de registrar las reacciones fisiológicas asociadas a un estímulo controlado. Sin embargo la reacción que será provocada por el procedimiento dado no puede considerarse como un solo indicador del dolor ya que el estímulo frío provoca efectos relacionados con la temperatura [12].
 
+
+# III. Resultados.
+
+# Simulación de una señal PPG y detección de picos y valles mediante MMPD
+
+## Descripción general
+
+El código desarrollado en MATLAB tiene como objetivo **simular una señal PPG (Photoplethysmography)** y posteriormente identificar sus principales características, especialmente los **picos sistólicos y los valles**.
+
+La señal se genera de manera artificial intentando incluir algunas características presentes en una señal PPG real, como la variación de la frecuencia cardíaca, cambios de amplitud entre latidos, onda dicrótica, muesca dicrótica, variación respiratoria y ruido.
+
+Después de generar y suavizar la señal, se utiliza el **método MMPD**, denominado en el código como **método del alpinista**, para detectar los picos y valles. Finalmente, se calculan diferentes parámetros fisiológicos y se evalúa el desempeño del algoritmo comparando las detecciones con los latidos verdaderos utilizados para generar la simulación.
+
+---
+
+## 1. Configuración de la simulación
+
+```matlab
+Fs = 100;
+T = 30;
+
+t = 0:1/Fs:T-1/Fs;
+N = length(t);
+
+rng(10);
+```
+
+La simulación utiliza una frecuencia de muestreo de **100 Hz** y una duración de **30 segundos**.
+
+La frecuencia de muestreo determina cada cuánto tiempo se toma una muestra:
+
+$$
+\Delta t=\frac{1}{F_s}=0.01\;s
+$$
+
+Por lo tanto, para 30 segundos se generan aproximadamente **3000 muestras**.
+
+La instrucción `rng(10)` fija la semilla de generación de números aleatorios. Esto es importante porque el código utiliza valores aleatorios para simular variaciones fisiológicas y ruido. Al mantener la misma semilla, los resultados pueden reproducirse en diferentes ejecuciones.
+
+---
+
+## 2. Generación de los latidos cardíacos
+
+Se establece una frecuencia cardíaca base de:
+
+```matlab
+HR_base = 72;
+```
+
+es decir, **72 BPM**.
+
+El primer latido se establece en `0.8 s` y posteriormente se generan los siguientes latidos utilizando una frecuencia cardíaca que cambia ligeramente.
+
+```matlab
+HR_actual = HR_base ...
+    + 3*sin(2*pi*beat_times(end)/15) ...
+    + 0.8*randn;
+```
+
+La variación está compuesta por una parte periódica y otra aleatoria. Esto evita que todos los latidos aparezcan exactamente separados por el mismo tiempo.
+
+Para cada latido se calcula el intervalo RR mediante:
+
+$$
+RR=\frac{60}{HR}
+$$
+
+Por ejemplo, para una frecuencia de 72 BPM:
+
+$$
+RR=\frac{60}{72}\approx0.833\;s
+$$
+
+El tiempo del siguiente latido se obtiene sumando este intervalo al tiempo del latido anterior.
+
+---
+
+## 3. Construcción de la señal PPG
+
+Inicialmente se crea una señal de ceros:
+
+```matlab
+ppg = zeros(size(t));
+```
+
+Después, para cada latido se genera una forma de onda individual y se van sumando todos los pulsos.
+
+### Pulso sistólico
+
+El componente principal del latido se genera mediante:
+
+```matlab
+pulso(idx) = (x/0.10).^2 .* exp(-x/0.14);
+```
+
+Esta función permite obtener una forma de onda con un **ascenso relativamente rápido y un descenso más lento**, característica de la morfología de un pulso PPG.
+
+El pulso se normaliza para que su amplitud máxima sea aproximadamente igual a 1.
+
+---
+
+## 4. Variación de amplitud
+
+Para hacer que los latidos sean menos ideales, cada pulso tiene una pequeña variación de amplitud:
+
+```matlab
+amp = 0.85 ...
+    * (1 + 0.05*sin(k)) ...
+    * (1 + 0.025*randn);
+```
+
+Esto representa de forma simplificada la variabilidad que puede existir entre diferentes latidos.
+
+Por lo tanto, aunque la forma general de los pulsos sea similar, no todos presentan exactamente la misma amplitud.
+
+---
+
+## 5. Onda y muesca dicrótica
+
+Además del pulso sistólico principal, se agregan dos características secundarias.
+
+### Onda dicrótica
+
+```matlab
+dic(idx_dic) = ...
+    0.12 * ...
+    exp(-((xd(idx_dic))/0.075).^2);
+```
+
+La onda dicrótica es una pequeña elevación que aparece durante la fase descendente de la señal PPG.
+
+### Muesca dicrótica
+
+```matlab
+notch(idx_notch) = ...
+    -0.035 * ...
+    exp(-((xn(idx_notch))/0.035).^2);
+```
+
+La muesca dicrótica representa una pequeña disminución que aparece antes de la onda dicrótica.
+
+Finalmente, todos los componentes se combinan:
+
+```matlab
+ppg = ppg + amp*pulso + dic + notch;
+```
+
+De esta forma, cada latido está compuesto por el pulso principal y sus características secundarias.
+
+---
+
+## 6. Línea base y variación respiratoria
+
+Después de generar todos los latidos, la señal se normaliza:
+
+```matlab
+ppg = ppg / max(ppg);
+```
+
+y se establece una línea base:
+
+```matlab
+ppg = 0.25 + 0.70*ppg;
+```
+
+También se agrega una variación lenta asociada a la respiración:
+
+```matlab
+resp = 0.025*sin(2*pi*0.23*t);
+ppg = ppg + resp;
+```
+
+La frecuencia utilizada es de `0.23 Hz`, que corresponde aproximadamente a:
+
+$$
+0.23\times60=13.8
+$$
+
+respiraciones por minuto.
+
+Esta variación permite representar de manera sencilla cómo la respiración puede modificar lentamente la amplitud de una señal PPG.
+
+---
+
+## 7. Adición de ruido y suavizado
+
+Para acercar la simulación a condiciones más realistas, se agrega ruido aleatorio:
+
+```matlab
+ruido = 0.008*randn(size(t));
+ppg = ppg + ruido;
+```
+
+El ruido representa pequeñas perturbaciones que pueden aparecer durante la adquisición de una señal fisiológica.
+
+Posteriormente se aplica un promedio móvil:
+
+```matlab
+ppg = movmean(ppg,3);
+```
+
+El suavizado reduce las fluctuaciones rápidas producidas por el ruido, facilitando la detección de los picos y valles sin modificar demasiado la forma general de la señal.
+
+---
+
+# 8. Detección mediante el método MMPD
+
+Para detectar los picos se utiliza el método MMPD, denominado en el código **método del alpinista**.
+
+La idea principal es analizar si la señal está **subiendo o bajando** y contar cuántos pasos consecutivos de subida presenta.
+
+Inicialmente se establece:
+
+```matlab
+num_upsteps = 0;
+threshold = 6;
+```
+
+El `threshold` corresponde al número mínimo de pasos ascendentes necesarios para considerar que puede existir un pico.
+
+---
+
+## Funcionamiento del detector
+
+El algoritmo recorre la señal muestra por muestra.
+
+Cuando:
+
+```matlab
+ppg(i) > ppg(i-1)
+```
+
+significa que la señal está subiendo y se incrementa el contador:
+
+```matlab
+num_upsteps = num_upsteps + 1;
+```
+
+Mientras la señal sube también se guarda la posición de un posible valle.
+
+Cuando la señal deja de subir y comienza a bajar, el algoritmo revisa el número de pasos acumulados.
+
+Si:
+
+```matlab
+num_upsteps >= threshold
+```
+
+se considera que se ha encontrado un **posible pico sistólico**.
+
+El algoritmo guarda su posición y continúa analizando la señal para confirmar cuál fue realmente el punto máximo.
+
+---
+
+## 9. Detección de los valles
+
+Una vez confirmado un pico, se busca el punto mínimo de la señal entre el pico anterior y el pico actual:
+
+```matlab
+[valor_valle,posicion_valle] = ...
+    min(ppg(inicio_valle:fin_valle));
+```
+
+De esta manera, cada ciclo queda caracterizado aproximadamente por:
+
+```text
+Valle → Ascenso sistólico → Pico → Descenso → Valle
+```
+
+Los tiempos y amplitudes de estos puntos se almacenan en:
+
+* `peak_times`
+* `peaks`
+* `valley_times`
+* `valleys`
+
+---
+
+## 10. Umbral adaptativo
+
+Una característica importante del algoritmo es que el umbral se modifica después de detectar cada pico:
+
+```matlab
+threshold = 0.6 * upsteps_at_peak;
+```
+
+Es decir, el nuevo umbral corresponde al **60 % de los pasos ascendentes registrados para el pico anterior**.
+
+Esto permite que el detector se adapte al comportamiento de la señal en lugar de utilizar siempre un valor fijo.
+
+---
+
+# 11. Cálculo de parámetros fisiológicos
+
+Una vez detectados los picos y valles, se calculan diferentes parámetros de la señal.
+
+### Intervalo RR
+
+Se obtiene mediante la diferencia entre los tiempos de picos consecutivos:
+
+$$
+RR_i=t_{pico(i+1)}-t_{pico(i)}
+$$
+
+En MATLAB:
+
+```matlab
+RR = diff(peak_times);
+```
+
+### Frecuencia cardíaca
+
+A partir de cada intervalo RR:
+
+$$
+FC=\frac{60}{RR}
+$$
+
+```matlab
+FC = 60 ./ RR;
+```
+
+Finalmente se calcula la frecuencia cardíaca promedio.
+
+---
+
+## 12. PPGA
+
+La **PPGA (Photoplethysmographic Pulse Amplitude)** se obtiene como la diferencia entre la amplitud del pico y la amplitud del valle:
+
+$$
+PPGA=Pico-Valle
+$$
+
+En el código:
+
+```matlab
+PPGA = peaks(1:num_pulsos) - valleys(1:num_pulsos);
+```
+
+Después se calcula el valor promedio:
+
+```matlab
+PPGA_promedio = mean(PPGA);
+```
+
+Este parámetro permite conocer la amplitud promedio de los pulsos detectados.
+
+---
+
+## 13. Tiempo de subida sistólica
+
+El tiempo de subida se obtiene restando el tiempo del valle al tiempo del pico:
+
+$$
+T_{subida}=T_{pico}-T_{valle}
+$$
+
+En el código:
+
+```matlab
+tiempo_subida(k) = ...
+    peak_times(k) - valley_times(k);
+```
+
+Posteriormente se calcula el promedio de todos los latidos.
+
+---
+
+# 14. Tabla de resultados
+
+El código genera una tabla que permite analizar los resultados **latido por latido**.
+
+```matlab
+Resultados = table(...)
+```
+
+La tabla contiene:
+
+| Variable      | Descripción         |
+| ------------- | ------------------- |
+| `Latido`      | Número del latido   |
+| `TiempoValle` | Instante del valle  |
+| `TiempoPico`  | Instante del pico   |
+| `Pico`        | Amplitud del pico   |
+| `Valle`       | Amplitud del valle  |
+| `PPGA_tabla`  | Amplitud del pulso  |
+| `RR_tabla`    | Intervalo RR        |
+| `FC_tabla`    | Frecuencia cardíaca |
+
+Esto permite observar tanto los valores individuales como las variaciones existentes entre diferentes latidos.
+
+---
+
+# 15. Visualización de la señal
+
+Se generan dos gráficas.
+
+La primera muestra los **30 segundos completos** de la señal PPG, mientras que la segunda realiza un acercamiento entre los segundos 1 y 6.
+
+Los elementos principales se representan de la siguiente manera:
+
+* **Señal PPG:** onda completa.
+* **Puntos rojos:** picos sistólicos detectados.
+* **Puntos verdes:** valles detectados.
+
+Estas gráficas permiten comprobar visualmente si el algoritmo está ubicando los puntos característicos de cada pulso en posiciones adecuadas.
+
+---
+
+# 16. Evaluación del algoritmo
+
+Una ventaja de trabajar con una señal simulada es que se conocen los tiempos reales de los latidos mediante `beat_times`.
+
+Por esto, los picos detectados pueden compararse con los valores verdaderos.
+
+Se utiliza una tolerancia de:
+
+```matlab
+tolerancia = 0.05;
+```
+
+correspondiente a **50 ms**.
+
+Si un pico detectado se encuentra dentro de esta tolerancia respecto a un latido verdadero, se considera una detección correcta.
+
+Se calculan:
+
+### TP — Verdaderos positivos
+
+Latidos reales que fueron detectados correctamente.
+
+### FN — Falsos negativos
+
+Latidos reales que no fueron detectados.
+
+### FP — Falsos positivos
+
+Picos detectados que no corresponden a un latido real.
+
+---
+
+## 17. Indicadores de desempeño
+
+### Sensibilidad
+
+$$
+Sensibilidad=\frac{TP}{TP+FN}\times100
+$$
+
+Indica qué porcentaje de los latidos reales fueron detectados por el algoritmo.
+
+### Precisión
+
+$$
+Precisión=\frac{TP}{TP+FP}\times100
+$$
+
+Indica qué porcentaje de las detecciones realizadas por el algoritmo fueron correctas.
+
+### Tasa de detección fallida
+
+El código también calcula:
+
+$$
+FDR=\frac{FN+FP}{TP}\times100
+$$
+
+Este indicador combina los errores asociados con falsos positivos y falsos negativos respecto a los verdaderos positivos. En este proyecto se utiliza como una medida adicional del desempeño del detector.
+
+---
+
+# 18. Flujo general del código
+
+```text
+Configuración de parámetros
+          ↓
+Generación de latidos
+          ↓
+Construcción del pulso PPG
+          ↓
+Onda y muesca dicrótica
+          ↓
+Línea base + respiración
+          ↓
+Ruido
+          ↓
+Suavizado
+          ↓
+Detección MMPD
+          ↓
+Picos y valles
+          ↓
+Cálculo de RR y FC
+          ↓
+Cálculo de PPGA
+          ↓
+Tiempo de subida sistólica
+          ↓
+Comparación con latidos reales
+          ↓
+TP, FP y FN
+          ↓
+Sensibilidad y precisión
+```
+
+
+
