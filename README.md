@@ -167,9 +167,6 @@ A su vez la técnica CPT permite examinar si un sistema dado de adquisición y p
 
 # III. Resultados.
 
-# Simulación de una señal PPG y detección de picos y valles mediante MMPD
-
-## Descripción general
 
 El código desarrollado en MATLAB tiene como objetivo **simular una señal PPG (Photoplethysmography)** y posteriormente identificar sus principales características, especialmente los **picos sistólicos y los valles**.
 
