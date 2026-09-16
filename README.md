@@ -131,18 +131,24 @@ La elección del algoritmo debe hacerse dependiendo del objetivo del programa.Es
 ## G. Intervalo entre latidos y frecuencia cardíaca
 El HBI (Intervalo del latido cardíaco) es igual al tiempo transcurrido entre un latido cardíaco y el siguiente.En una señal de un fotoplethysmograma (PPG) se puede medir a través de la diferencia de tiempo entre dos picos sistólicos siempre y cuando estos sean detectados con precisión. Si  $ t_{i} $  ti es el instante en el cual ocurre el pico de un latido cardíaco y  $ t_{i+1} $  el de el siguiente entonces el HBI se puede escribir como:
 
-""Fórmula 2""
+$$
+HBI_i = t_{i+1} - t_i
+$$
 
 Cuando el intervalo se expresa en segundos, la frecuencia cardíaca puede estimarse mediante:
 
-""Fórmula 3""
+$$
+HR = \frac{60}{HBI}
+$$
 
 Por lo tanto es importante tener en cuenta que una detección precisa del pico es muy esencial no solo para la determinación de la frecuencia cardíaca sino también para el cálculo del SPI.Un resultado falso positivo disminuirá artificialmente el intervalo entre latidos mientras que omitir un latido resulta en un intervalo entre latidos anormalmente alto.
 
 ## H. Amplitud del pulso pletismográfico
 Cada amplitud de pulso se puede obtener usando el máximo y el mínimo que corresponde a ese pulso.Esto implica que para una amplitud de pulso de $ P_{max} $ y su mínimo de $ P_{min} $ , entonces la amplitud se define por:
 
-""Fórmula 4""
+$$
+PPGA_i = P_{max,i} - P_{min,i}
+$$
 
 Este es un valor que muestra el tamaño de la señal pulsátil registrada por el sensor.Para calcular el SPI se debe normalizar primero la amplitud de cada pulso. Según la literatura del SPI el PPGA normalizado es uno de los dos parámetros claves que forman el SPI [10].
 
