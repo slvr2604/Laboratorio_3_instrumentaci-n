@@ -80,7 +80,55 @@ $$
 
 donde PPGAnorm corresponde a la amplitud pletismográfica normalizada y HBInorm representa el intervalo entre latidos normalizado [4], [10].
 
+La normalización es un proceso importante ya que es a través de la normalización que las variables originales se convierten en una escala tal que puedan ser combinadas. La derivación original del índice implica la transformación de la distribución individual del HBI y del PPGA usando datos históricos del paciente y distribuciones de referencia para poder expresar ambas variables usando una escala común del 0 al 100 [10].
 
+El peso asignado a cada uno de los componentes lleva al hecho de que la amplitud plethysmográfica tiene más peso que el intervalo entre latidos del corazón.Esto se debe a la capacidad del PPGA de detectar los cambios en la vasoconstricción periférica debido a la actividad simpática. El HBI por otro lado da datos acerca de la actividad cardíaca [4],[10].
 
+En estudios clínicos se ha empleado un intervalo aproximado de 20 a 50 como referencia para la monitorización de la analgesia durante anestesia general. No obstante, estos valores corresponden al contexto clínico del SPI comercial y no deben trasladarse automáticamente a una implementación experimental simplificada, especialmente cuando el algoritmo de normalización y las condiciones de adquisición difieren del sistema clínico original [5], [6].
+
+## E. Procesamiento digital de señales PPG
+La adquisición de parámetros fisiológicos de una señal PPG normalmente requiere una fase de preprocesamiento inicial. El objetivo es eliminar las partes de la señal que no se desean manteniendo intactas las características relacionadas con los latidos del corazón. Algunos de los problemas comunes en este sentido son el desplazamiento de la línea base, ruidos de alta frecuencia, artefactos de movimiento y la variación de la forma del pulso [9].
+
+Se pueden utilizar filtros para confinar la señal dentro de un cierto rango de frecuencia basado en el rango de frecuencia fisiológica. Los filtros de paso banda por ejemplo pueden ayudar a atenuar las partes de muy baja frecuencia de la señal que causan el desplazamiento de la línea base y las partes de alta frecuencia que corresponden al ruido. Sin embargo se debe tener cuidado al seleccionar los frecuencias de corte en términos de la tasa de muestreo ya que un sobre filtrado puede distorsionar la forma de la señal y así interferir con la detección de los pulsos [9].
+
+## F. Detección de máximos y mínimos en señales PPG
+Encontrar los máximos y mínimos es una parte crucial del análisis de las señales PPG ya que ayuda a definir los límites de cada onda pulsátil y su dinámica temporal.La diferencia entre los máximos consecutivos permite determinar la distancia temporal entre latidos del corazón mientras que la relación entre los máximos y los mínimos permite estimar la amplitud de los pulsos.Se han propuesto diversos enfoques para realizar esta operación todos los cuales poseen tanto ventajas como desventajas en cuanto a la presencia de ruido,el desplazamiento de la línea base y la amplitud variable.[9]
+
+### F.1. Detección mediante máximos y mínimos locales
+Una de las técnicas más sencillas incluye la detección de los valores máximos o mínimos en un determinado intervalo de tiempo. Dentro de esta técnica el señal se analiza de acuerdo a ventanas de tiempo y el punto que tenga el valor máximo o mínimo dentro de cada área se elige. Este proceso puede ser complementado por limitaciones de amplitud y de tiempo que evitarían que cualquier amplitud pequeña sea detectada como pulsaciones [9].
+
+La principal ventaja de esta técnica radica en su simplicidad que permite su uso en sistemas de adquisición en tiempo real fácilmente. Sin embargo depende mucho del tamaño de la ventana y de la selección del umbral. En caso de una selección de ventana inadecuada la técnica detectará varios máximos correspondientes a un mismo pulso o por el contrario no detectará pulsos consecutivos. Además la variabilidad línea a línea puede influir en la detección cuando se aplican umbrales absolutos [9].
+
+### F.2. Detección mediante umbral adaptativo
+Los métodos de umbrales adaptativos intentan mejorar algunos problemas presentados en el método de umbral fijo ajustando el umbral basándose en las propiedades de la señal detectadas en períodos anteriores.En el caso de la señal PPG estos algoritmos podrían ajustar el umbral dependiendo de la amplitud del pulso y establecer limitaciones temporales entre eventos consecutivos [7][9].
+
+El algoritmo de umbral adaptativo utiliza un umbral que varía junto con la amplitud de la señal y establece un periodo refractario para evitar la detección de eventos en pulsos posteriores.En particular esta técnica es útil cuando se trabaja con señales cuya amplitud varía durante la adquisición porque el criterio no está completamente fijo [7].
+
+Una ventaja de los métodos adaptativos es su tolerancia a los cambios lentos en la línea base y a la variación de la amplitud. Sin embargo el algoritmo requiere algunos parámetros referentes a la adaptación del umbral y al intervalo refractario, así que la configuración inadecuada de estos puede causar pulsos perdidos o detecciones falsas [7][9].
+
+### F.3. Detección mediante cruces por cero y derivadas
+Otra forma de abordar el problema es estudiar la pendiente de la propia señal. El máximo local se dará cuando la pendiente pase de ser positiva a negativa y viceversa, un mínimo se dará cuando la pendiente pase de ser negativa a positiva. Por lo tanto el problema de detectar amplitudes extremas se reduce al problema de detectar la transición entre signos en la pendiente.[9]
+
+Los enfoques basados en cruces de cero pueden tener problemas si hay pequeñas oscilaciones en la señal ya que cada oscilación va a traer cambios de signo que son detectados como máximos o mínimos.En este caso siempre se requiere un preprocesamiento o un suavizado. También existen variantes en las cuales las transformadas de onda o de Hilbert preceden al procedimiento de detección.[9]
+
+### F.4. Métodos basados en transformada wavelet
+La transformada wavelet permite representar la señal simultáneamente en los dominios temporal y de escala, facilitando la identificación de características que aparecen a diferentes frecuencias. En señales PPG, esta propiedad puede aprovecharse para separar componentes asociadas con los pulsos de otras variaciones de la señal [9], [11].
+
+Los métodos basados en wavelets pueden presentar una elevada robustez frente a componentes de ruido tanto de alta como de baja frecuencia; sin embargo, su mayor complejidad computacional puede dificultar su implementación en sistemas de tiempo real con recursos limitados [9], [11].
+
+### F.5. Detección mediante primera derivada
+Los métodos basados en derivadas son otra forma de encontrar los puntos característicos de la onda PPG. La primera derivada es una herramienta para enfatizar las transiciones rápidas de la señal mientras que la segunda derivada se utiliza para analizar la morfología del pulso y encontrar sus características secundarias [9]. La principal fortaleza de este método es la capacidad de acentuar las características morfológicas de la señal que son difíciles de notar en la original. Sin embargo la desventaja de este método es la amplificación de los componentes de ruido de alta frecuencia [9].
+
+## F.6. Método del alpinista
+Entre los enfoques diseñados especialmente para el procesamiento de las señales PPG se encuentra el "Método del Montañero" que se ha sugerido para el reconocimiento de picos en las señales PPG. El enfoque ha sido elaborado teniendo en cuenta particularmente la dificultad de reconocer los pulsos en caso de cambios en las amplitudes de la señal, el desplazamiento de la línea base y las señales de baja amplitud [8].
+
+El enfoque se basa en escanear gradualmente la señal para definir las áreas de pendientes ascendentes y descendentes de la señal hasta que se reconozcan los puntos que podrían corresponder a los picos y valles de la señal. El enfoque no se basa solamente en un umbral absoluto sino que analiza la evolución de la propia señal para encontrar sus picos y valles. Este enfoque permite que el algoritmo tome en cuenta los cambios en las amplitudes de la señal, lo cual es especialmente importante para las señales PPG ya que su amplitud puede cambiar [8].
+
+La técnica del escalador es particularmente importante para la práctica ya que no se trata solamente de la detección de picos sistólicos sino de la obtención de los mínimos diastólicos requeridos para la determinación de la amplitud del pulso también.La literatura que trata de diversos métodos de detección involucra,entre otros,la técnica de umbral adaptativo,técnicas robustas y la técnica del escalador,prueban que el comportamiento de cada una de ellas depende de las propiedades de la señal y de las perturbaciones [8],[9].
+
+La elección del algoritmo debe hacerse dependiendo del objetivo del programa.Es particularmente crítico para un sistema diseñado para calcular el SPI asegurarse de que el algoritmo encuentre correctamente los picos y los valles relacionados con cada latido ya que los errores en su búsqueda afectarán la estimación del intervalo de tiempo entre los pulsos y el cálculo de la amplitud plethográfica.Por lo tanto la precisión en la búsqueda de los picos y los valles influye directamente en el resultado del cálculo [8],[9].
+
+## G. Intervalo entre latidos y frecuencia cardíaca
+El HBI (Intervalo del latido cardíaco) es igual al tiempo transcurrido entre un latido cardíaco y el siguiente.En una señal de un fotoplethysmograma (PPG) se puede medir a través de la diferencia de tiempo entre dos picos sistólicos siempre y cuando estos sean detectados con precisión. Si \(t_i\) es el instante en el cual ocurre el pico de un latido cardíaco y \(t_{i+1}\) el de el siguiente entonces el HBI se puede escribir como:
 
 
