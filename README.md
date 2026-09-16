@@ -129,6 +129,32 @@ La técnica del escalador es particularmente importante para la práctica ya que
 La elección del algoritmo debe hacerse dependiendo del objetivo del programa.Es particularmente crítico para un sistema diseñado para calcular el SPI asegurarse de que el algoritmo encuentre correctamente los picos y los valles relacionados con cada latido ya que los errores en su búsqueda afectarán la estimación del intervalo de tiempo entre los pulsos y el cálculo de la amplitud plethográfica.Por lo tanto la precisión en la búsqueda de los picos y los valles influye directamente en el resultado del cálculo [8],[9].
 
 ## G. Intervalo entre latidos y frecuencia cardíaca
-El HBI (Intervalo del latido cardíaco) es igual al tiempo transcurrido entre un latido cardíaco y el siguiente.En una señal de un fotoplethysmograma (PPG) se puede medir a través de la diferencia de tiempo entre dos picos sistólicos siempre y cuando estos sean detectados con precisión. Si $t_{i}$ ti es el instante en el cual ocurre el pico de un latido cardíaco y $t_{i+1}$ el de el siguiente entonces el HBI se puede escribir como:
+El HBI (Intervalo del latido cardíaco) es igual al tiempo transcurrido entre un latido cardíaco y el siguiente.En una señal de un fotoplethysmograma (PPG) se puede medir a través de la diferencia de tiempo entre dos picos sistólicos siempre y cuando estos sean detectados con precisión. Si  $ t_{i} $  ti es el instante en el cual ocurre el pico de un latido cardíaco y  $ t_{i+1} $  el de el siguiente entonces el HBI se puede escribir como:
 
+""Fórmula 2""
+
+Cuando el intervalo se expresa en segundos, la frecuencia cardíaca puede estimarse mediante:
+
+""Fórmula 3""
+
+Por lo tanto es importante tener en cuenta que una detección precisa del pico es muy esencial no solo para la determinación de la frecuencia cardíaca sino también para el cálculo del SPI.Un resultado falso positivo disminuirá artificialmente el intervalo entre latidos mientras que omitir un latido resulta en un intervalo entre latidos anormalmente alto.
+
+## H. Amplitud del pulso pletismográfico
+Cada amplitud de pulso se puede obtener usando el máximo y el mínimo que corresponde a ese pulso.Esto implica que para una amplitud de pulso de $ P_{max} $ y su mínimo de $ P_{min} $ , entonces la amplitud se define por:
+
+""Fórmula 4""
+
+Este es un valor que muestra el tamaño de la señal pulsátil registrada por el sensor.Para calcular el SPI se debe normalizar primero la amplitud de cada pulso. Según la literatura del SPI el PPGA normalizado es uno de los dos parámetros claves que forman el SPI [10].
+
+## I. Normalización de las variables para el cálculo del SPI
+La normalización proporciona la posibilidad de convertir las variables HBI y PPGA las cuales tienen diferentes escalas y unidades a una uniforme.Como se hizo originalmente en el desarrollo del SPI las variables se normalizan con el uso de la información de la señal histórica y las distribuciones de referencia [10].
+
+La importancia de este problema debe enfatizarse especialmente al implementar el SPI en el ambiente experimental. Una fórmula la cual se basa en el uso directo de los valores de amplitud y tiempo del sistema de adquisición no corresponde completamente al SPI implementado en las clínicas ya que el dispositivo comercial tiene su propio proceso de normalización. Si el laboratorio intenta desarrollar una implementación simplificada del índice entonces se debe enfatizar la diferencia entre ellos [10].
+
+## J. Cold Pressor Test como estímulo fisiológico
+La prueba del prensador frío (CPT) es un experimento donde el estímulo para una respuesta autónoma es un estímulo frío, el cual normalmente consiste en sumergir uno de los miembros en agua fría. La respuesta que se produce de este tipo de estímulo es una respuesta simpática,caracterizada por un aumento de la presión arterial,la frecuencia cardíaca y un cambio en el tono vascular periférico [12].
+
+En cuanto al sistema cardiovascular la respuesta simpática provocada por la estimulación fría provoca la vasoconstricción y cambios en la actividad del corazón.Esto puede afectar directamente la amplitud de la señal del pulso y hace que la CPT sea una herramienta valiosa para estudiar sistemas basados en variables plethsmográficas [12].
+
+A su vez la técnica CPT permite examinar si un sistema dado de adquisición y procesamiento de datos es capaz de registrar las reacciones fisiológicas asociadas a un estímulo controlado. Sin embargo la reacción que será provocada por el procedimiento dado no puede considerarse como un solo indicador del dolor ya que el estímulo frío provoca efectos relacionados con la temperatura [12].
 
