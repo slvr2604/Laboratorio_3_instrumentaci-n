@@ -164,6 +164,7 @@ En cuanto al sistema cardiovascular la respuesta simpática provocada por la est
 
 A su vez la técnica CPT permite examinar si un sistema dado de adquisición y procesamiento de datos es capaz de registrar las reacciones fisiológicas asociadas a un estímulo controlado. Sin embargo la reacción que será provocada por el procedimiento dado no puede considerarse como un solo indicador del dolor ya que el estímulo frío provoca efectos relacionados con la temperatura [12].
 
+---
 
 # III. Resultados.
 
@@ -724,3 +725,46 @@ $$
 El valor promedio obtenido fue de 72.14 BPM, y el intervalo RR promedio calculado a partir de los picos detectados fue de 0.833 s.
 
 Como parte del procesamiento también se calculó el tiempo entre los puntos correspondientes al valle y al pico sistólico. El valor promedio obtenido por el programa fue de -0.576 s. Este resultado queda registrado como el valor entregado por el procesamiento de la simulación.
+
+---
+
+# IV. ANÁLISIS DE RESULTADOS.
+
+## 1. Compare los valores del SPI obtenidos durante la práctica con los que frecuentemente se observan durante una cirugía para proporcionar el nivel óptimo de anestesia.
+En esta práctica no fue posible obtener un valor de SPI a partir de una adquisición experimental real. Por esta razón, los resultados obtenidos en MATLAB se entienden como una simulación del procesamiento de una señal PPG y no como una medición clínica del SPI. Aunque se lograron identificar los picos, valles, intervalos RR y PPGA de la señal simulada, estos datos no se utilizaron para obtener un valor numérico final del SPI. Por lo tanto, no es posible comparar directamente un valor de SPI obtenido durante la práctica con los valores que podrían registrarse durante una cirugía.
+
+Para tener una referencia sobre el comportamiento del SPI, en algunos estudios realizados en adultos bajo anestesia general se ha utilizado un intervalo aproximado entre 20 y 50 como referencia para orientar el ajuste de la analgesia durante el procedimiento. Sin embargo, este rango no debe tomarse como un valor universal, ya que la interpretación del SPI depende de las condiciones del paciente, del procedimiento y de otros parámetros fisiológicos que también deben tenerse en cuenta.
+
+El SPI se calcula a partir de información relacionada con la señal fotopletismográfica y la frecuencia cardíaca. Cuando se presenta un estímulo nociceptivo, puede aumentar la actividad del sistema nervioso simpático, lo que puede generar un aumento de la frecuencia cardíaca y una disminución de la amplitud de la onda PPG. Estos cambios pueden provocar un aumento del SPI. Por esta razón, durante una cirugía, un incremento sostenido del índice puede relacionarse con una mayor respuesta fisiológica frente al estímulo quirúrgico, aunque su interpretación no debe hacerse de manera aislada.
+
+En este sentido, los resultados de la práctica permitieron llegar hasta la extracción de algunas de las variables necesarias para continuar con el cálculo del SPI, pero no fue posible determinar si el paciente simulado se encontraría dentro o fuera de un rango específico de analgesia. Para poder hacer esta comparación habría sido necesario contar con una adquisición real y válida de la señal PPG y completar el procedimiento de cálculo del índice.
+
+## 2. Evalúe el alcance y las posibles limitaciones de emplear el sistema desarrollado para cuantificar el dolor que percibe una persona.
+El principal alcance del sistema desarrollado está en la posibilidad de obtener información fisiológica de manera indirecta a partir de una señal PPG. Durante la simulación fue posible identificar los ciclos cardíacos y obtener parámetros como la frecuencia cardíaca, el intervalo RR y la PPGA. Esto permite comprobar que la señal PPG contiene información útil para analizar algunos cambios relacionados con la respuesta autonómica del organismo.
+
+Sin embargo, es importante diferenciar entre una respuesta fisiológica frente a un estímulo nocivo y la medición directa del dolor. El dolor es una experiencia personal que involucra aspectos tanto sensoriales como emocionales, mientras que la nocicepción se refiere al proceso mediante el cual el sistema nervioso identifica estímulos que pueden ser potencialmente dañinos. Por esta razón, ambos conceptos no son equivalentes y la presencia de una respuesta fisiológica no permite determinar por sí sola cuánto dolor está experimentando una persona.
+
+En este sentido, un sistema basado en SPI no debe considerarse como un dispositivo capaz de medir directamente el dolor. Su función está más relacionada con el seguimiento de cambios fisiológicos asociados con la nocicepción durante la anestesia, especialmente en situaciones en las que el paciente no puede comunicar lo que está sintiendo. Por esto, el SPI se utiliza como una medida complementaria a la valoración clínica y no como un reemplazo de esta.
+
+También se debe tener en cuenta que el valor del SPI puede cambiar por diferentes factores que no necesariamente están relacionados con un estímulo doloroso. Aspectos como la edad, el volumen circulante, la posición del paciente, los medicamentos administrados, el tipo y la profundidad de la anestesia y las condiciones clínicas pueden influir en el resultado. Por lo tanto, un aumento o disminución del SPI no puede interpretarse automáticamente como una señal de mayor o menor dolor, sino que debe analizarse junto con el resto de la información disponible del paciente.
+
+---
+# V. PREGUNTAS DE DISCUSIÓN
+## 1. ¿Cómo se relacionan las variaciones del volumen sanguíneo periférico con el balance autonómico?
+Las variaciones en el volumen de sangre en los tejidos periféricos están relacionadas, en parte, con los cambios que genera el sistema nervioso autónomo en los vasos sanguíneos. Cuando aumenta la actividad del sistema simpático, como puede suceder ante un estímulo nocivo o una situación de estrés, se produce una mayor vasoconstricción periférica. Esto hace que llegue temporalmente una menor cantidad de sangre a la zona donde se realiza la medición, provocando una disminución en la amplitud de la onda PPG. En cambio, cuando la actividad simpática disminuye, puede presentarse una mayor vasodilatación y, como consecuencia, un aumento en la amplitud de la señal.
+
+Esta relación permite utilizar la PPG como una forma indirecta de observar cambios en la actividad del sistema nervioso autónomo. En el caso del SPI, la información relacionada con la amplitud de la onda de pulso se combina con los cambios en el intervalo entre los latidos cardíacos. De esta manera, una respuesta cardiovascular acompañada de vasoconstricción periférica puede indicar una mayor respuesta fisiológica ante un estímulo nocivo.
+
+## 2. ¿Cómo se compara el SPI con otros índices comúnmente empleados en cirugía, como el índice nocicepción-analgesia (ANI) y el índice de perfusión?
+El SPI, el ANI y el índice de perfusión utilizan señales fisiológicas relacionadas con la actividad cardiovascular, pero cada uno analiza aspectos diferentes. El SPI se utiliza principalmente para evaluar la respuesta del organismo frente a estímulos nocivos durante la anestesia. Para esto, tiene en cuenta los cambios en la amplitud de la onda de pulso obtenida mediante la PPG y las variaciones en el intervalo entre los latidos. De esta manera, combina información relacionada con la respuesta de los vasos sanguíneos y con la actividad cardíaca.
+
+Por su parte, el ANI se basa principalmente en la variabilidad de la frecuencia cardíaca y permite analizar cambios relacionados con la actividad parasimpática. Por esta razón, aunque el SPI y el ANI pueden utilizarse para estudiar la respuesta autonómica ante diferentes estímulos, cada uno lo hace a partir de variables fisiológicas distintas. El SPI incluye información de la respuesta vascular periférica obtenida mediante la PPG, mientras que el ANI se enfoca principalmente en la regulación autonómica del corazón.
+
+El índice de perfusión tiene un objetivo diferente, ya que permite observar la relación entre los componentes pulsátil y no pulsátil de la señal PPG. Este índice se utiliza principalmente para evaluar cambios en la perfusión periférica y no está diseñado específicamente para medir la nocicepción. En este sentido, el SPI está más relacionado con la respuesta nociceptiva durante la anestesia, el ANI con la actividad autonómica cardíaca y el índice de perfusión con los cambios en la circulación periférica.
+
+Es importante tener en cuenta que ninguno de estos índices mide directamente el dolor. El dolor es una experiencia personal que incluye componentes sensoriales y emocionales, mientras que la nocicepción está relacionada con el procesamiento de estímulos que pueden ser potencialmente dañinos. Por lo tanto, estos índices pueden aportar información útil para el seguimiento del paciente durante una cirugía, pero sus valores también pueden cambiar por factores como los medicamentos, las condiciones hemodinámicas y las características del procedimiento.
+
+# VI. CONCLUSIÓN
+La práctica tuvo como objetivo estudiar el cálculo del índice pletismográfico quirúrgico (SPI) a partir del procesamiento de una señal PPG. Sin embargo, durante la implementación del circuito no fue posible obtener una señal experimental con las características necesarias para realizar el cálculo directamente. Por esta razón, se utilizó una señal PPG simulada en MATLAB, con la cual fue posible desarrollar y comprobar el procesamiento propuesto. A partir de la señal simulada se identificaron los picos y valles correspondientes a los diferentes ciclos y se obtuvieron variables como la frecuencia cardíaca, el intervalo RR y la amplitud de pulso. Esto permitió comprobar que el método de detección implementado funciona correctamente para extraer información de la señal PPG, aunque los resultados obtenidos corresponden a una simulación y no a datos fisiológicos reales. Por otra parte, desde el componente teórico se pudo comprender que el SPI permite relacionar ciertos cambios en la señal PPG y en la frecuencia cardíaca con la respuesta autonómica del organismo frente a estímulos nocivos durante la anestesia. También se pudo establecer que este índice no representa una medición directa del dolor, sino una herramienta complementaria para evaluar la respuesta fisiológica del paciente. Como trabajo futuro, se plantea mejorar la etapa de adquisición del circuito para obtener una señal PPG experimental de buena calidad. Esto permitiría completar el cálculo del SPI utilizando datos fisiológicos reales y analizar cómo se comporta el índice ante diferentes condiciones de estímulo y niveles de anestesia.
+
+
