@@ -771,6 +771,10 @@ La práctica tuvo como objetivo estudiar el cálculo del índice pletismográfic
 
 # REFERENCIAS
 
+[1] M. Huiku et al., “Assessment of surgical stress during general anaesthesia,” British Journal of Anaesthesia, vol. 98, no. 4, pp. 447–455, 2007.
+
+[2] J. Allen, “Photoplethysmography and its application in clinical physiological measurement,” Physiological Measurement, vol. 28, no. 3, pp. R1–R39, 2007.
+
 [3] T. Ledowski, “Objective monitoring of nociception: A review of current commercial solutions,” British Journal of Anaesthesia, vol. 123, no. 2, pp. e312–e321, 2019, doi: 10.1016/j.bja.2019.03.024.
 
 [4] V. Bonhomme, K. Uutela, G. Hans, I. Maquoi, J. D. Born, and J. F. Brichant, “Comparison of the Surgical Pleth Index™ with haemodynamic variables to assess nociception-anti-nociception balance during general anaesthesia,” British Journal of Anaesthesia, vol. 106, no. 1, pp. 101–111, 2011, doi: 10.1093/bja/aeq291.
