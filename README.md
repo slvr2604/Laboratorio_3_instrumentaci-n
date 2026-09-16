@@ -129,6 +129,6 @@ La técnica del escalador es particularmente importante para la práctica ya que
 La elección del algoritmo debe hacerse dependiendo del objetivo del programa.Es particularmente crítico para un sistema diseñado para calcular el SPI asegurarse de que el algoritmo encuentre correctamente los picos y los valles relacionados con cada latido ya que los errores en su búsqueda afectarán la estimación del intervalo de tiempo entre los pulsos y el cálculo de la amplitud plethográfica.Por lo tanto la precisión en la búsqueda de los picos y los valles influye directamente en el resultado del cálculo [8],[9].
 
 ## G. Intervalo entre latidos y frecuencia cardíaca
-El HBI (Intervalo del latido cardíaco) es igual al tiempo transcurrido entre un latido cardíaco y el siguiente.En una señal de un fotoplethysmograma (PPG) se puede medir a través de la diferencia de tiempo entre dos picos sistólicos siempre y cuando estos sean detectados con precisión. Si \(t_i\) es el instante en el cual ocurre el pico de un latido cardíaco y \(t_{i+1}\) el de el siguiente entonces el HBI se puede escribir como:
+El HBI (Intervalo del latido cardíaco) es igual al tiempo transcurrido entre un latido cardíaco y el siguiente.En una señal de un fotoplethysmograma (PPG) se puede medir a través de la diferencia de tiempo entre dos picos sistólicos siempre y cuando estos sean detectados con precisión. Si $t_{i}$ ti es el instante en el cual ocurre el pico de un latido cardíaco y $t_{i+1}$ el de el siguiente entonces el HBI se puede escribir como:
 
 
