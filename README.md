@@ -767,4 +767,28 @@ Es importante tener en cuenta que ninguno de estos índices mide directamente el
 # VI. CONCLUSIÓN
 La práctica tuvo como objetivo estudiar el cálculo del índice pletismográfico quirúrgico (SPI) a partir del procesamiento de una señal PPG. Sin embargo, durante la implementación del circuito no fue posible obtener una señal experimental con las características necesarias para realizar el cálculo directamente. Por esta razón, se utilizó una señal PPG simulada en MATLAB, con la cual fue posible desarrollar y comprobar el procesamiento propuesto. A partir de la señal simulada se identificaron los picos y valles correspondientes a los diferentes ciclos y se obtuvieron variables como la frecuencia cardíaca, el intervalo RR y la amplitud de pulso. Esto permitió comprobar que el método de detección implementado funciona correctamente para extraer información de la señal PPG, aunque los resultados obtenidos corresponden a una simulación y no a datos fisiológicos reales. Por otra parte, desde el componente teórico se pudo comprender que el SPI permite relacionar ciertos cambios en la señal PPG y en la frecuencia cardíaca con la respuesta autonómica del organismo frente a estímulos nocivos durante la anestesia. También se pudo establecer que este índice no representa una medición directa del dolor, sino una herramienta complementaria para evaluar la respuesta fisiológica del paciente. Como trabajo futuro, se plantea mejorar la etapa de adquisición del circuito para obtener una señal PPG experimental de buena calidad. Esto permitiría completar el cálculo del SPI utilizando datos fisiológicos reales y analizar cómo se comporta el índice ante diferentes condiciones de estímulo y niveles de anestesia.
 
+---
+
+# REFERENCIAS
+
+[3] T. Ledowski, “Objective monitoring of nociception: A review of current commercial solutions,” British Journal of Anaesthesia, vol. 123, no. 2, pp. e312–e321, 2019, doi: 10.1016/j.bja.2019.03.024.
+
+[4] V. Bonhomme, K. Uutela, G. Hans, I. Maquoi, J. D. Born, and J. F. Brichant, “Comparison of the Surgical Pleth Index™ with haemodynamic variables to assess nociception-anti-nociception balance during general anaesthesia,” British Journal of Anaesthesia, vol. 106, no. 1, pp. 101–111, 2011, doi: 10.1093/bja/aeq291.
+
+[5] M. Huiku, K. Uutela, M. van Gils, I. Korhonen, M. Kymäläinen, P. Meriläinen, M. Paloheimo, M. Rantanen, P. Takala, H. Viertiö-Oja, and A. Yli-Hankala, “Assessment of surgical stress during general anaesthesia,” British Journal of Anaesthesia, vol. 98, no. 4, pp. 447–455, 2007, doi: 10.1093/bja/aem004.
+
+[6] S. Funcke, S. Sauerlaender, H. O. Pinnschmidt, B. Saugel, K. Bremer, D. A. Reuter, R. Nitzschke, et al., “Validation of innovative techniques for monitoring nociception during general anesthesia: A clinical study using tetanic and intracutaneous electrical stimulation,” Anesthesiology, vol. 127, no. 2, pp. 272–283, 2017, doi: 10.1097/ALN.0000000000001670.
+
+[7] H. S. Shin, C. Lee, and M. Lee, “Adaptive threshold method for the peak detection of photoplethysmographic waveform,” Computers in Biology and Medicine, vol. 39, no. 12, pp. 1145–1152, 2009, doi: 10.1016/j.compbiomed.2009.10.006.
+
+[8] E. J. Argüello-Prada, “The mountaineer's method for peak detection in photoplethysmographic signals,” Revista Facultad de Ingeniería, Universidad de Antioquia, no. 90, pp. 42–50, 2019, doi: 10.17533/udea.redin.n90a06.
+
+[9] J. Park, J. Seok, S. W. Kim, and H. Shin, “Photoplethysmogram analysis and applications: An integrative review,” Frontiers in Physiology, vol. 12, 2022, Art. no. 808451.
+
+[10] S. J. S. S. et al., “Elevated Surgical Pleth Index at the End of Surgery Is Associated with Postoperative Moderate-to-Severe Pain: A Systematic Review and Meta-Analysis,” Journal of Clinical Monitoring and Computing, 2022.
+
+[11] X. Liu, X. Yang, H. Sun, et al., “A hybrid wavelet-based method for the peak detection of photoplethysmography signals,” Sensors, vol. 17, no. 11, 2017.
+
+[12] S. Mourot, M. Bouhaddi, and J. Regnard, “Effects of the cold pressor test on cardiac autonomic control in healthy subjects,” Autonomic Neuroscience
+
 
